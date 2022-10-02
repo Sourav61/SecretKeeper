@@ -31,7 +31,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB");
+mongoose.connect(
+  "mongodb+srv://sourav:" +
+    process.env.PASS +
+    "@cluster0.vc3hkxe.mongodb.net/userDB"
+);
 
 const userSchema = new mongoose.Schema({
   email: String,
@@ -49,7 +53,7 @@ passport.use(User.createStrategy());
 
 passport.serializeUser(function (user, cb) {
   process.nextTick(function () {
-    cb(null, { id: user.id, username: user.username, name: user.name });
+    cb(null, { id: user?.id, username: user?.username, name: user?.name });
   });
 });
 
